@@ -1,5 +1,5 @@
 ﻿using Application.Processors;
-using Domain.Strategy;
+using Domain.Strategies.Salary;
 
 namespace Application.Services;
 
@@ -7,18 +7,21 @@ public sealed class SalaryService : ISalaryService
 {
     public double CalculateSalary(string coutry, double salary)
     {
-        SalaryProcessor processor = new();
+        var processor = new SalaryProcessor();
 
-        processor.SetSalaryStrategy(GetType(coutry));
+        var operation = SelectCountryOperation(coutry.ToLower());
+
+        processor.SetSalaryStrategy(operation);
+
         return processor.ProcessSalary(salary);
     }
 
-    private static ISalaryStrategy GetType(string country) =>
+    private static ISalaryStrategy SelectCountryOperation(string country) =>
         country switch
         {
-            "BR" => new BrazilSalaryStrategy(),
-            "PT" => new PortugalSalaryStrategy(),
-            "EU" => new EuropeSalaryStrategy(),
+            "br" => new BrazilSalaryStrategy(),
+            "pt" => new PortugalSalaryStrategy(),
+            "eu" => new EuropeSalaryStrategy(),
             _ => throw new ArgumentException("We cannot process salary for this country yet"),
         };
 }

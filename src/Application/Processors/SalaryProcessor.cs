@@ -1,4 +1,4 @@
-﻿using Domain.Strategy;
+﻿using Domain.Strategies.Salary;
 
 namespace Application.Processors;
 

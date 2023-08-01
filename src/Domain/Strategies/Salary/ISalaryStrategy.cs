@@ -1,4 +1,4 @@
-﻿namespace Domain.Strategy;
+﻿namespace Domain.Strategies.Salary;
 
 public interface ISalaryStrategy
 {
