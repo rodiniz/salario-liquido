@@ -2,6 +2,6 @@
 
 public record RequestModel
 {
-    public CountryEnum Country { get; set; }
+    public required string Country { get; set; }
     public double Salary { get; set; }
 }
