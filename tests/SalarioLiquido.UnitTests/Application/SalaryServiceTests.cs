@@ -17,10 +17,11 @@ public sealed class SalaryServiceTests
         var salaryService = new SalaryService();
 
         // Act
-        var liquidSalary = salaryService.CalculateSalary(country, salary);
+        var result = salaryService.CalculateSalary(country, salary);
 
         // Assert
-        Assert.Equal(expected, liquidSalary);
+        Assert.True(result.IsT0);
+        Assert.Equal(result.AsT0, expected);
     }
 
     [Theory]
@@ -35,6 +36,9 @@ public sealed class SalaryServiceTests
 
         // Act
         // Assert
-        Assert.Throws<ArgumentException>(() => salaryService.CalculateSalary(country, salary));
+        var result = salaryService.CalculateSalary(country, salary);
+
+        Assert.True(result.IsT1);
+        Assert.Contains(result.AsT1.Message, $"Country {country} not supported yet");
     }
 }

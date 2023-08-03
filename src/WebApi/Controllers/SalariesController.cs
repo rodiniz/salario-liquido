@@ -21,12 +21,10 @@ public sealed class SalariesController : ControllerBase
     {
         try
         {
-            var liquidSalary = _salaryService.CalculateSalary(request.Country, request.Salary);
-            return Ok(liquidSalary);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
+            var serviceResult = _salaryService.CalculateSalary(request.Country, request.Salary);
+            return serviceResult.Match<IActionResult>(
+                netSalary => Ok(netSalary),
+                error => BadRequest(error.Message));
         }
         catch (Exception ex)
         {

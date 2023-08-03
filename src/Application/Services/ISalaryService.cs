@@ -1,6 +1,8 @@
-﻿namespace Application.Services;
+﻿using OneOf;
+
+namespace Application.Services;
 
 public interface ISalaryService
 {
-    double CalculateSalary(string coutry, double salary);
+    OneOf<double, CalculationFailed> CalculateSalary(string country, double salary);
 }
